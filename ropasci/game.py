@@ -31,7 +31,9 @@ class Game:
 
         self.players.append(player2)
 
-    def play(self):
+    def play(self, players=[]):
+        if not (players or self.players): self.setup_players()
+
         player1 = self.players[0]
         player2 = self.players[1]
         player1.wins = 0
@@ -70,6 +72,7 @@ class Game:
 class Engine:
 
     def __init__(self):
+        self.players = []
         self.commands = {
                 "play": "start a new game",
                 "help": "view an explanation of each command",
@@ -131,8 +134,7 @@ select the game mode.
             else:
                 print("Not a valid mode. Choose again.")
 
-        game.setup_players()
-        game.play()
+        game.play(self.players)
 
         while True:
             again = input("Would you like to play again? ")[0].lower()
